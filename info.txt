@@ -1,0 +1,24 @@
+npm i date-fns -D
+
+https://platform.kata.academy/user/courses/3/1/4/11
+12:28
+
+npm i prop-types
+
+npm install -g eslint
+
+
+npm install eslint eslint-config-airbnb eslint-config-prettier --save-dev
+npm install eslint-plugin-import eslint-plugin-jsx-a11y --save-dev
+npm install eslint-plugin-react eslint-plugin-react-hooks babel-eslint --save-dev
+npm install prettier husky lint-staged --save-dev
+
+npm install eslint-plugin-prettier --save-dev
+npm install babel-eslint --save-dev
+
+npm  run lint
+npm  run lint:fix
+npm  run format
+
+
+npm  run build
