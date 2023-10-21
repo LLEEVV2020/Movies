@@ -2,9 +2,15 @@ import React, { Component } from 'react'
 
 import './app.css'
 
+import NavTabs from '../nav-tabs'
+
 class App extends Component {
   render() {
-    return <section className="test">test</section>
+    return (
+      <section className="movies">
+        <NavTabs />
+      </section>
+    )
   }
 }
 export default App

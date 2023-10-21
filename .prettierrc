@@ -4,5 +4,6 @@
   "endOfLine": "lf",
   "printWidth": 120,
   "semi": false,
-  "bracketSpacing": true
+  "bracketSpacing": true,
+  "doctype-first": false
 }
