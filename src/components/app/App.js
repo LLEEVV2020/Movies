@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import { Pagination } from 'antd'
 import './app.css'
 
 import NavTabs from '../nav-tabs'
@@ -13,6 +13,14 @@ class App extends Component {
         <NavTabs />
         <Search />
         <MoviesList />
+        <Pagination
+          style={{ textAlign: 'center' }}
+          defaultCurrent={null}
+          pageSize={null}
+          total={null}
+          onChange={null}
+          showSizeChanger={false}
+        />
       </section>
     )
   }
