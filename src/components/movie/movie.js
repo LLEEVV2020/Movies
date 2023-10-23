@@ -12,7 +12,7 @@ function Movie() {
         width="183"
         height="281"
         alt="Movie poster"
-        src={'https://image.tmdb.org/t/p/original/mOX5O6JjCUWtlYp5D8wajuQRVgy.jpg'}
+        src={'https://re.pro-dex.ru/img.jpg'}
       />
     </li>
   )
