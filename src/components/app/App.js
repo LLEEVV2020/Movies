@@ -4,6 +4,7 @@ import './app.css'
 
 import NavTabs from '../nav-tabs'
 import Search from '../search'
+import MoviesList from '../movies-list'
 
 class App extends Component {
   render() {
@@ -11,6 +12,7 @@ class App extends Component {
       <section className="movies">
         <NavTabs />
         <Search />
+        <MoviesList />
       </section>
     )
   }
