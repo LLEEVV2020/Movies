@@ -9,6 +9,7 @@ class App extends Component {
     return (
       <section className="movies">
         <NavTabs />
+        <Search />
       </section>
     )
   }

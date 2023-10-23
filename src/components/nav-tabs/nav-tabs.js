@@ -16,7 +16,7 @@ const items = [
 function NavTabs() {
   return (
     <div>
-      <Tabs defaultActiveKey={'Search'} items={items} onChange={null} centered />; ghhhh
+      <Tabs defaultActiveKey={'Search'} items={items} onChange={null} centered />
     </div>
   )
 }
