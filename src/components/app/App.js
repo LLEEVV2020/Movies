@@ -6,6 +6,8 @@ import NavTabs from '../nav-tabs'
 import Search from '../search'
 import MoviesList from '../movies-list'
 
+//import { getFilmsByQuery } from '../../services/api'
+
 class App extends Component {
   render() {
     return (
