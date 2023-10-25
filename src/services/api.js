@@ -7,7 +7,35 @@ const options = {
   },
 }
 
-fetch('https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1', options)
-  .then((response) => response.json())
-  .then((response) => console.log(response))
-  .catch((err) => console.error(err))
+export default class GeneralApiService {
+  async getResource(url) {
+    const res = await fetch(url, options)
+
+    if (!res.ok) {
+      throw new Error(`Возможно не правильный путь ссылки ${url}  ${res.status}`)
+    }
+
+    const body = await res.json()
+    return body
+  }
+
+  async getFilms() {
+    const res = await this.getResource(
+      'https://api.themoviedb.org/3/search/movie?query=return&include_adult=false&language=en-US&page=1'
+    )
+    return res.results
+  }
+}
+
+const apiService = new GeneralApiService()
+apiService
+  .getFilms()
+  .then((films) => {
+    films.forEach((film) => {
+      console.log(film)
+      console.log(film.overview)
+    })
+  })
+  .catch((err) => {
+    console.error('Ошибка', err)
+  })

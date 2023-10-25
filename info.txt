@@ -29,3 +29,10 @@ npm install antd --save-dev
 54d00798622e17e8561fe1e160f2b62f
 
 eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NGQwMDc5ODYyMmUxN2U4NTYxZmUxZTE2MGYyYjYyZiIsInN1YiI6IjY1MzYxMDFmOTFmMGVhMDBlMWFiZjAxNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.kKFU3t1hLbBasFrwRHQ165a5ou17x8jEXii39AL6BEk
+
+Для работы с запросами АПИ:
+Axios
+Superagent
+Got
+Request
+Reqwest
