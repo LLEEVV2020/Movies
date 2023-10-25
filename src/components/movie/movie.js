@@ -17,8 +17,7 @@ class Movie extends Component {
     vote_average: null,
   }
 
-  constructor() {
-    super()
+  componentDidMount() {
     this.updateFilms()
   }
 

@@ -9,26 +9,22 @@ const { Text } = Typography
 
 class MoviesList extends Component {
   apiService = new GeneralApiService()
-
-  constructor() {
-    super()
-    this.updateFilms()
-  }
+  customFilm = null
 
   state = {
     films: null,
+  }
+  componentDidMount() {
+    this.updateFilms()
   }
 
   updateFilms() {
     this.apiService
       .getFilms()
       .then((films) => {
-        /*this.setState(({ films }) => {
-          return {
-            films: films,
-          }
-        })*/
-        console.log(films)
+        this.customFilm = films
+        //console.log(films)
+        //console.log(this.customFilm)
         //console.log(this.state.films)
       })
       .catch((err) => {
@@ -43,11 +39,7 @@ class MoviesList extends Component {
           <Text type="secondary">There are no films matching your request.</Text>
           {Math.floor(Math.random() * 19)}
         </Space>
-        {
-          //this.state.films.map((film) => {
-          // return film
-          //})
-        }
+        {console.log(this.customFilm)}
         <Movie />
         <Movie />
         <Movie />
