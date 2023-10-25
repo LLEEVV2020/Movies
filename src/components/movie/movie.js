@@ -27,7 +27,7 @@ class Movie extends Component {
       .getFilms()
       .then((films) => {
         films.forEach((film, index) => {
-          if (index === 9) {
+          if (index === 0) {
             this.setState({
               overview: film.overview,
               title: film.title,
@@ -37,8 +37,8 @@ class Movie extends Component {
                 : './none-poster.jpg',
             })
           }
-          console.log(film)
-          console.log(film.poster_path)
+          // console.log(film)
+          // console.log(film.poster_path)
         })
       })
       .catch((err) => {

@@ -27,7 +27,7 @@ export default class GeneralApiService {
   }
 }
 
-const apiService = new GeneralApiService()
+/*const apiService = new GeneralApiService()
 apiService
   .getFilms()
   .then((films) => {
@@ -38,4 +38,4 @@ apiService
   })
   .catch((err) => {
     console.error('Ошибка', err)
-  })
+  })*/
