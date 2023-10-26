@@ -24,6 +24,7 @@ npm start
 npm  run build
 
 npm install antd --save-dev
+npm install @ant-design/icons --save-dev
 
 
 54d00798622e17e8561fe1e160f2b62f

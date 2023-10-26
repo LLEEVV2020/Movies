@@ -6,6 +6,7 @@ import NavTabs from '../nav-tabs'
 import Search from '../search'
 import MoviesList from '../movies-list'
 import GeneralApiService from '../../services/api'
+import Spinner from '../spinner'
 
 class App extends Component {
   apiService = new GeneralApiService()
@@ -42,7 +43,7 @@ class App extends Component {
       <section className="movies">
         <NavTabs />
         <Search />
-        {isLoading ? <p>Spinner</p> : <MoviesList arrFilms={arrFilms} />}
+        {isLoading ? <Spinner /> : <MoviesList arrFilms={arrFilms} />}
 
         <Pagination
           style={{ textAlign: 'center' }}
