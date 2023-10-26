@@ -7,8 +7,6 @@ import GenresList from '../genres-list'
 import { hideLongDescription } from '../../utils'
 
 class Movie extends Component {
-  dateRelease = ''
-
   state = {
     id: this.props.film.id,
     poster_path: this.props.film.poster_path
