@@ -17,7 +17,6 @@ function MoviesList({ arrFilms }) {
       ) : (
         <Space direction="vertical" style={{ textAlign: 'center', width: '100%' }}>
           <Text type="secondary">There are no films matching your request.</Text>
-          {Math.floor(Math.random() * 19)}
         </Space>
       )}
     </ul>

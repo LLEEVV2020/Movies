@@ -3,6 +3,7 @@ import { Rate } from 'antd'
 import { Component } from 'react'
 
 import GenresList from '../genres-list'
+import { hideLongDescription } from '../../utils'
 
 class Movie extends Component {
   state = {
@@ -19,19 +20,16 @@ class Movie extends Component {
   componentDidMount() {}
 
   render() {
-    const { id, overview, title, release_date, poster_path } = this.state
+    const { overview, title, release_date, poster_path } = this.state
 
     return (
       <li className="movies__item movie">
         <div className="movie__content">
           <div className="movie__inner">
-            <h3 className="movie__title">
-              {title}
-              {id}
-            </h3>
+            <h3 className="movie__title">{title}</h3>
             <h4 className="movie__date">{release_date}</h4>
             <GenresList />
-            <div className="movie__desc">{overview}</div>
+            <div className="movie__desc">{hideLongDescription(overview)}</div>
             <div className="movie__rating-number rating-number">7 </div>
           </div>
           <Rate

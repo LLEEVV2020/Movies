@@ -14,6 +14,7 @@ class App extends Component {
     super(props)
     this.state = {
       arrFilms: [],
+      isLoading: true,
     }
   }
 
@@ -25,6 +26,7 @@ class App extends Component {
         //console.log(films)
         this.setState({
           arrFilms: films,
+          isLoading: false,
         })
         console.log(films)
       })
@@ -34,13 +36,14 @@ class App extends Component {
   }
 
   render() {
-    const { arrFilms } = this.state
+    const { arrFilms, isLoading } = this.state
 
     return (
       <section className="movies">
         <NavTabs />
         <Search />
-        <MoviesList arrFilms={arrFilms} />
+        {isLoading ? <p>Spinner</p> : <MoviesList arrFilms={arrFilms} />}
+
         <Pagination
           style={{ textAlign: 'center' }}
           defaultCurrent={null}
