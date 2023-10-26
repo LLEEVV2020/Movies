@@ -6,15 +6,22 @@ import NavTabs from '../nav-tabs'
 import Search from '../search'
 import MoviesList from '../movies-list'
 
-//import { getFilmsByQuery } from '../../services/api'
-
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      arrFilms: this.props.arrFilms,
+    }
+  }
+
   render() {
+    const { arrFilms } = this.state
+
     return (
       <section className="movies">
         <NavTabs />
         <Search />
-        <MoviesList />
+        <MoviesList arrFilms={arrFilms} />
         <Pagination
           style={{ textAlign: 'center' }}
           defaultCurrent={null}

@@ -2,57 +2,33 @@ import './movie.css'
 import { Rate } from 'antd'
 import { Component } from 'react'
 
-import GeneralApiService from '../../services/api'
 import GenresList from '../genres-list'
 
 class Movie extends Component {
-  apiService = new GeneralApiService()
-
   state = {
-    id: null,
-    poster_path: './none-poster.jpg',
-    overview: 'loremlorem loremlorem loremlorem lorem',
-    title: 'film.title2',
-    release_date: 'film.releaseDate',
+    id: this.props.film.id,
+    poster_path: this.props.film.poster_path
+      ? 'https://image.tmdb.org/t/p/original' + this.props.film.poster_path
+      : './none-poster.jpg',
+    overview: this.props.film.overview,
+    title: this.props.film.title,
+    release_date: this.props.film.release_date,
     vote_average: null,
   }
 
-  componentDidMount() {
-    this.updateFilms()
-  }
-
-  updateFilms() {
-    this.apiService
-      .getFilms()
-      .then((films) => {
-        films.forEach((film, index) => {
-          if (index === 0) {
-            this.setState({
-              overview: film.overview,
-              title: film.title,
-              release_date: film.release_date,
-              poster_path: film.poster_path
-                ? 'https://image.tmdb.org/t/p/original' + film.poster_path
-                : './none-poster.jpg',
-            })
-          }
-          // console.log(film)
-          // console.log(film.poster_path)
-        })
-      })
-      .catch((err) => {
-        console.error('Ошибка', err)
-      })
-  }
+  componentDidMount() {}
 
   render() {
-    const { overview, title, release_date, poster_path } = this.state
+    const { id, overview, title, release_date, poster_path } = this.state
 
     return (
       <li className="movies__item movie">
         <div className="movie__content">
           <div className="movie__inner">
-            <h3 className="movie__title">{title}</h3>
+            <h3 className="movie__title">
+              {title}
+              {id}
+            </h3>
             <h4 className="movie__date">{release_date}</h4>
             <GenresList />
             <div className="movie__desc">{overview}</div>
