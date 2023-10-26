@@ -29,7 +29,7 @@ class App extends Component {
           arrFilms: films,
           isLoading: false,
         })
-        console.log(films)
+        //console.log(films)
       })
       .catch((err) => {
         console.error('Отсутствие фильмов', err)

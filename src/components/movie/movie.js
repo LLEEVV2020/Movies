@@ -1,11 +1,14 @@
 import './movie.css'
 import { Rate } from 'antd'
 import { Component } from 'react'
+import format from 'date-fns/format'
 
 import GenresList from '../genres-list'
 import { hideLongDescription } from '../../utils'
 
 class Movie extends Component {
+  dateRelease = ''
+
   state = {
     id: this.props.film.id,
     poster_path: this.props.film.poster_path
@@ -13,11 +16,11 @@ class Movie extends Component {
       : './none-poster.jpg',
     overview: this.props.film.overview,
     title: this.props.film.title,
-    release_date: this.props.film.release_date,
+
+    release_date:
+      this.props.film.release_date === '' ? '' : format(new Date(this.props.film.release_date), 'MMMM d, yyyy'),
     vote_average: null,
   }
-
-  componentDidMount() {}
 
   render() {
     const { overview, title, release_date, poster_path } = this.state

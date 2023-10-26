@@ -8,7 +8,9 @@ const { Text } = Typography
 function MoviesList({ arrFilms }) {
   return (
     <ul className="movies__list">
-      {console.log(arrFilms)}
+      {
+        //console.log(arrFilms)
+      }
 
       {arrFilms.length ? (
         arrFilms.map((film) => {
