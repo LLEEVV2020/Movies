@@ -5,13 +5,32 @@ import './app.css'
 import NavTabs from '../nav-tabs'
 import Search from '../search'
 import MoviesList from '../movies-list'
+import GeneralApiService from '../../services/api'
 
 class App extends Component {
+  apiService = new GeneralApiService()
+
   constructor(props) {
     super(props)
     this.state = {
-      arrFilms: this.props.arrFilms,
+      arrFilms: [],
     }
+  }
+
+  componentDidMount() {
+    this.apiService
+      .getFilms()
+      .then((films) => {
+        //arrFilms = films
+        //console.log(films)
+        this.setState({
+          arrFilms: films,
+        })
+        console.log(films)
+      })
+      .catch((err) => {
+        console.error('Отсутствие фильмов', err)
+      })
   }
 
   render() {
