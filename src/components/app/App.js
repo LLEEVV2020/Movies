@@ -7,6 +7,7 @@ import Search from '../search'
 import MoviesList from '../movies-list'
 import GeneralApiService from '../../services/api'
 import Spinner from '../spinner'
+import ErrorPopap from '../popup'
 
 class App extends Component {
   apiService = new GeneralApiService()
@@ -16,34 +17,53 @@ class App extends Component {
     this.state = {
       arrFilms: [],
       isLoading: true,
+      error: false,
+      offline: false,
     }
   }
 
   componentDidMount() {
+    if (!navigator.onLine) {
+      this.setState({
+        offline: true,
+      })
+    }
+
     this.apiService
       .getFilms()
+
       .then((films) => {
-        //arrFilms = films
-        //console.log(films)
         this.setState({
           arrFilms: films,
           isLoading: false,
         })
-        //console.log(films)
+        //
       })
       .catch((err) => {
         console.error('Отсутствие фильмов', err)
+        this.setState({
+          error: err,
+        })
       })
   }
 
   render() {
-    const { arrFilms, isLoading } = this.state
+    const { arrFilms, isLoading, error, offline } = this.state
+    let contentLoading = isLoading ? <Spinner /> : <MoviesList arrFilms={arrFilms} />
+
+    // проверка есть ли интернет у пользователя
+    if (offline) {
+      return <ErrorPopap offline />
+    }
+    if (error) {
+      return <ErrorPopap type={'error'} name={error.name} message={error.message} />
+    }
 
     return (
       <section className="movies">
         <NavTabs />
         <Search />
-        {isLoading ? <Spinner /> : <MoviesList arrFilms={arrFilms} />}
+        {contentLoading}
 
         <Pagination
           style={{ textAlign: 'center' }}

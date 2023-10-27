@@ -8,11 +8,27 @@ const options = {
 }
 
 export default class GeneralApiService {
+  /*async getResource(url) {
+    try {
+      const res = await fetch(url, options)
+      if (!res.ok) {
+        throw new Error(`Возможно не правильный путь ссылки ${url}  ${res.status}`)
+        //
+      }
+  
+      const body = await res.json()
+      return body
+
+    } catch (error) {
+      return res.status
+      //console.error('Error:', error);
+    }
+  }*/
   async getResource(url) {
     const res = await fetch(url, options)
-
     if (!res.ok) {
       throw new Error(`Возможно не правильный путь ссылки ${url}  ${res.status}`)
+      //
     }
 
     const body = await res.json()
