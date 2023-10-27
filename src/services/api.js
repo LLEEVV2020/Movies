@@ -24,6 +24,11 @@ export default class GeneralApiService {
       //console.error('Error:', error);
     }
   }*/
+  _PAGE = 1
+  _URL = 'https://api.themoviedb.org/3/search/movie?query='
+  _QUERU = 'return'
+  _URLPar = '&include_adult=false&language=en-US&page='
+
   async getResource(url) {
     const res = await fetch(url, options)
     if (!res.ok) {
@@ -32,14 +37,15 @@ export default class GeneralApiService {
     }
 
     const body = await res.json()
+
     return body
   }
 
-  async getFilms() {
-    const res = await this.getResource(
-      'https://api.themoviedb.org/3/search/movie?query=return&include_adult=false&language=en-US&page=1'
-    )
-    return res.results
+  async getFilms(page) {
+    this._PAGE = page
+    const res = await this.getResource(this._URL + this._QUERU + this._URLPar + this._PAGE)
+    //console.log(res)
+    return res
   }
 }
 

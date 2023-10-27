@@ -16,25 +16,23 @@ class App extends Component {
     super(props)
     this.state = {
       arrFilms: [],
+      total: 0, // количество фильмов
+      currentPage: 1, // текущая странница пагинации
       isLoading: true,
       error: false,
       offline: false,
     }
   }
 
-  componentDidMount() {
-    if (!navigator.onLine) {
-      this.setState({
-        offline: true,
-      })
-    }
-
+  loadingService = (page = 1) => {
     this.apiService
-      .getFilms()
+      .getFilms(page)
 
       .then((films) => {
+        // console.log(films)
         this.setState({
-          arrFilms: films,
+          arrFilms: films.results,
+          total: films.total_results,
           isLoading: false,
         })
         //
@@ -46,10 +44,48 @@ class App extends Component {
         })
       })
   }
+  componentDidMount() {
+    if (!navigator.onLine) {
+      this.setState({
+        offline: true,
+      })
+    }
+
+    this.loadingService(this.state.currentPage)
+  }
+
+  /*componentDidUpdate(prevState) {
+    if (this.state.currentPage == !prevState.currentPage) {
+      this.loadingService(this.state.currentPage)
+    }
+  }*/
+
+  paginationChangeHandler = (page) => {
+    console.log(page)
+    this.setState({
+      currentPage: page,
+      isLoading: true,
+    })
+    this.loadingService(page)
+  }
 
   render() {
     const { arrFilms, isLoading, error, offline } = this.state
-    let contentLoading = isLoading ? <Spinner /> : <MoviesList arrFilms={arrFilms} />
+    let contentLoading = isLoading ? (
+      <Spinner />
+    ) : (
+      <>
+        <MoviesList arrFilms={arrFilms} />
+        <Pagination
+          style={{ textAlign: 'center' }}
+          defaultCurrent={this.state.currentPage}
+          pageSize={20}
+          total={this.state.total}
+          onChange={this.paginationChangeHandler}
+          showSizeChanger={false}
+        />
+      </>
+    )
 
     // проверка есть ли интернет у пользователя
     if (offline) {
@@ -64,15 +100,6 @@ class App extends Component {
         <NavTabs />
         <Search />
         {contentLoading}
-
-        <Pagination
-          style={{ textAlign: 'center' }}
-          defaultCurrent={null}
-          pageSize={null}
-          total={null}
-          onChange={null}
-          showSizeChanger={false}
-        />
       </section>
     )
   }
