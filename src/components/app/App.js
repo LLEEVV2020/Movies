@@ -23,6 +23,8 @@ class App extends Component {
       isLoading: true,
       error: false,
       offline: false,
+
+      ratedFilmsStorage: this.props.ratedFilmsStorage,
     }
   }
 
@@ -113,6 +115,9 @@ class App extends Component {
     return (
       <section className="movies">
         <NavTabs />
+        {this.state.ratedFilmsStorage.getItems()}
+        {this.state.ratedFilmsStorage._storeKey}
+
         <Search searchQuery={queru} changeHandler={this.debauncedSearchInputChangeHandler} />
         {contentLoading}
       </section>
