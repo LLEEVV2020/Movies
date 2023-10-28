@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Pagination } from 'antd'
+import _ from 'lodash'
 import './app.css'
 
 import NavTabs from '../nav-tabs'
@@ -18,15 +19,16 @@ class App extends Component {
       arrFilms: [],
       total: 0, // количество фильмов
       currentPage: 1, // текущая странница пагинации
+      queru: 'return',
       isLoading: true,
       error: false,
       offline: false,
     }
   }
 
-  loadingService = (page = 1) => {
+  loadingService = (page = 1, queru) => {
     this.apiService
-      .getFilms(page)
+      .getFilms(page, queru)
 
       .then((films) => {
         // console.log(films)
@@ -51,7 +53,7 @@ class App extends Component {
       })
     }
 
-    this.loadingService(this.state.currentPage)
+    this.loadingService(this.state.currentPage, this.state.queru)
   }
 
   /*componentDidUpdate(prevState) {
@@ -60,17 +62,29 @@ class App extends Component {
     }
   }*/
 
+  /** переключение пагинации */
   paginationChangeHandler = (page) => {
-    console.log(page)
+    //console.log(page)
     this.setState({
       currentPage: page,
       isLoading: true,
     })
-    this.loadingService(page)
+    this.loadingService(page, this.state.queru)
   }
 
+  debauncedSearchInputChangeHandler = _.debounce((searchQuery) => {
+    //if (searchQuery) fetchData(getFilmsByQuery.bind(null, searchQuery, DEFAULT_PAGE), searchQuery)
+    // else fetchData(getRandomFilms.bind(null, currentPage))
+    if (searchQuery) {
+      this.setState({
+        isLoading: true,
+      })
+      this.loadingService(this.state.currentPage, searchQuery)
+    }
+  }, 1000)
+
   render() {
-    const { arrFilms, isLoading, error, offline } = this.state
+    const { arrFilms, isLoading, error, offline, queru } = this.state
     let contentLoading = isLoading ? (
       <Spinner />
     ) : (
@@ -91,6 +105,7 @@ class App extends Component {
     if (offline) {
       return <ErrorPopap offline />
     }
+    // проверка на ошибку 404
     if (error) {
       return <ErrorPopap type={'error'} name={error.name} message={error.message} />
     }
@@ -98,7 +113,7 @@ class App extends Component {
     return (
       <section className="movies">
         <NavTabs />
-        <Search />
+        <Search searchQuery={queru} changeHandler={this.debauncedSearchInputChangeHandler} />
         {contentLoading}
       </section>
     )

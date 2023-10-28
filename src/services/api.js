@@ -41,8 +41,9 @@ export default class GeneralApiService {
     return body
   }
 
-  async getFilms(page) {
+  async getFilms(page, queru) {
     this._PAGE = page
+    this._QUERU = queru
     const res = await this.getResource(this._URL + this._QUERU + this._URLPar + this._PAGE)
     //console.log(res)
     return res
