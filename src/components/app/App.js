@@ -24,6 +24,7 @@ class App extends Component {
       error: false,
       offline: false,
 
+      currentTab: 'Search',
       ratedFilmsStorage: this.props.ratedFilmsStorage,
     }
   }
@@ -74,9 +75,8 @@ class App extends Component {
     this.loadingService(page, this.state.queru)
   }
 
+  /** поиск фильмов через инпут */
   debauncedSearchInputChangeHandler = _.debounce((searchQuery) => {
-    //if (searchQuery) fetchData(getFilmsByQuery.bind(null, searchQuery, DEFAULT_PAGE), searchQuery)
-    // else fetchData(getRandomFilms.bind(null, currentPage))
     if (searchQuery) {
       this.setState({
         isLoading: true,
@@ -84,6 +84,16 @@ class App extends Component {
       this.loadingService(this.state.currentPage, searchQuery)
     }
   }, 1000)
+
+  tabChangeHandler = (newTab) => {
+    if (newTab === this.state.currentTab) return
+    if (newTab === 'Search') {
+      console.log(newTab)
+    }
+    if (newTab === 'Rated') {
+      console.log(newTab)
+    }
+  }
 
   render() {
     const { arrFilms, isLoading, error, offline, queru } = this.state
@@ -114,7 +124,7 @@ class App extends Component {
 
     return (
       <section className="movies">
-        <NavTabs />
+        <NavTabs onChnage={this.tabChangeHandler} />
         {this.state.ratedFilmsStorage.getItems()}
         {this.state.ratedFilmsStorage._storeKey}
 

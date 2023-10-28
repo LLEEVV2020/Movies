@@ -13,11 +13,11 @@ const items = [
   },
 ]
 
-function NavTabs() {
+function NavTabs({ onChnage }) {
   return (
-    <div>
-      <Tabs defaultActiveKey={'Search'} items={items} onChange={null} centered />
-    </div>
+    <>
+      <Tabs defaultActiveKey={items['Search']} items={items} onChange={onChnage} centered />
+    </>
   )
 }
 
