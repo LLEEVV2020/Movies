@@ -4,6 +4,7 @@ import { Component } from 'react'
 import format from 'date-fns/format'
 
 import GenresList from '../genres-list'
+import RatingNumber from '../rating-number'
 import { hideLongDescription } from '../../utils'
 
 class Movie extends Component {
@@ -35,7 +36,7 @@ class Movie extends Component {
             <h4 className="movie__date">{release_date}</h4>
             <GenresList />
             <div className="movie__desc">{hideLongDescription(overview)}</div>
-            <div className="movie__rating-number rating-number">7 </div>
+            <RatingNumber evaluation={vote_average} />
           </div>
           <Rate
             className="movie__rating"
@@ -45,9 +46,14 @@ class Movie extends Component {
             style={{ fontSize: '15px' }}
             onChange={(newRating) => {
               onRatingChange(id, newRating)
-              console.log(this.props.film)
+              this.setState({
+                vote_average: newRating,
+              })
+              //console.log(this.props.film)
+              
             }}
           />
+          
         </div>
         <img className="movie__poster" width="183" height="281" alt="Movie poster" src={poster_path} />
       </li>
