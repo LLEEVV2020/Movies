@@ -48,7 +48,22 @@ export default class GeneralApiService {
     //console.log(res)
     return res
   }
+
+  async getMovieGenresList() {
+    const response = await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options);
+    if (!response.ok) {
+      throw new Error(`Возможно не правильный путь ссылки по списку жанров ${url}  ${res.status}`)
+      //
+    }
+    //console.log(response)
+    const genres = await response.json()
+
+    return genres;
+  }
+
 }
+
+
 
 /*const apiService = new GeneralApiService()
 apiService

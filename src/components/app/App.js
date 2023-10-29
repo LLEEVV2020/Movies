@@ -52,6 +52,23 @@ class App extends Component {
         })
       })
   }
+  loadingMovieGenresList = () => {
+    this.apiService
+      .getMovieGenresList()
+
+      .then((films) => {
+         console.log(films)
+        // получаем список жанров фильмов
+        //
+      })
+      .catch((err) => {
+        console.error('Отсутствие жанроф', err)
+        this.setState({
+          error: err,
+        })
+      })
+  }
+  
   componentDidMount() {
     if (!navigator.onLine) {
       this.setState({
@@ -60,6 +77,8 @@ class App extends Component {
     }
 
     this.loadingService(this.state.currentPage, this.state.queru)
+    this.loadingMovieGenresList()
+    
   }
 
   /*componentDidUpdate(prevState) {
