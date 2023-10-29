@@ -49,8 +49,8 @@ class Movie extends Component {
               this.setState({
                 vote_average: newRating,
               })
-              //console.log(this.props.film)
-              
+              console.log(this.props.film)
+              console.log(this.props.film.genre_ids)
             }}
           />
           
