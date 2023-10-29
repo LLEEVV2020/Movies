@@ -8,6 +8,8 @@ import { hideLongDescription } from '../../utils'
 
 class Movie extends Component {
   state = {
+    onRatingChange: this.props.onRatingChange,
+
     id: this.props.film.id,
     poster_path: this.props.film.poster_path
       ? 'https://image.tmdb.org/t/p/original' + this.props.film.poster_path
@@ -17,11 +19,13 @@ class Movie extends Component {
 
     release_date:
       this.props.film.release_date === '' ? '' : format(new Date(this.props.film.release_date), 'MMMM d, yyyy'),
+    //vote_average: this.props.film.vote_average,
     vote_average: null,
   }
 
   render() {
-    const { overview, title, release_date, poster_path } = this.state
+    const { onRatingChange, id, overview, title, release_date, poster_path, vote_average } = this.state
+    //console.log(this.props.film)
 
     return (
       <li className="movies__item movie">
@@ -36,10 +40,10 @@ class Movie extends Component {
           <Rate
             className="movie__rating"
             allowHalf
-            defaultValue={null}
+            defaultValue={Number(vote_average)}
             count={10}
             style={{ fontSize: '15px' }}
-            onChange={null}
+            onChange={(newRating) => onRatingChange(id, newRating)}
           />
         </div>
         <img className="movie__poster" width="183" height="281" alt="Movie poster" src={poster_path} />

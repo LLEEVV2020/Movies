@@ -89,19 +89,31 @@ class App extends Component {
     if (newTab === this.state.currentTab) return
     if (newTab === 'Search') {
       console.log(newTab)
+      this.setState({
+        currentTab: 'Search',
+      })
+      this.loadingService(this.state.currentPage, this.state.queru)
     }
     if (newTab === 'Rated') {
       console.log(newTab)
+      this.setState({
+        currentTab: 'Rated',
+      })
+      this.loadingService(this.state.currentPage, 'king')
     }
   }
 
+  filmRateChangeHandler = (movieId, newRating) => {
+    console.log(movieId, newRating)
+  }
+
   render() {
-    const { arrFilms, isLoading, error, offline, queru } = this.state
+    const { arrFilms, isLoading, error, offline, queru, currentTab } = this.state
     let contentLoading = isLoading ? (
       <Spinner />
     ) : (
       <>
-        <MoviesList arrFilms={arrFilms} />
+        <MoviesList arrFilms={arrFilms} onRatingChange={this.filmRateChangeHandler} />
         <Pagination
           style={{ textAlign: 'center' }}
           defaultCurrent={this.state.currentPage}
@@ -125,10 +137,14 @@ class App extends Component {
     return (
       <section className="movies">
         <NavTabs onChnage={this.tabChangeHandler} />
+
         {this.state.ratedFilmsStorage.getItems()}
         {this.state.ratedFilmsStorage._storeKey}
 
-        <Search searchQuery={queru} changeHandler={this.debauncedSearchInputChangeHandler} />
+        {currentTab === 'Search' ? (
+          <Search searchQuery={queru} changeHandler={this.debauncedSearchInputChangeHandler} />
+        ) : null}
+
         {contentLoading}
       </section>
     )

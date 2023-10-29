@@ -5,7 +5,7 @@ import Movie from '../movie'
 
 const { Text } = Typography
 
-function MoviesList({ arrFilms }) {
+function MoviesList({ arrFilms, onRatingChange }) {
   return (
     <ul className="movies__list">
       {
@@ -14,7 +14,7 @@ function MoviesList({ arrFilms }) {
 
       {arrFilms.length ? (
         arrFilms.map((film) => {
-          return <Movie key={film.id} film={film} />
+          return <Movie key={film.id} film={film} onRatingChange={onRatingChange} />
         })
       ) : (
         <Space direction="vertical" style={{ textAlign: 'center', width: '100%' }}>
