@@ -40,3 +40,43 @@ Got
 Request
 Reqwest Math.floor(Math.random() * 19)
 
+
+REACT.CONTEXT
+
+
+<Aaa>
+	<Provider value={lang}>
+		<Bbb>
+			<ddd>
+				<Niz >
+					<Consumer>
+						{
+							(lang) => {
+								return ( <Niz lang={lang} /> )
+							}
+						}
+						
+					</Consumer>
+				<Niz />
+				
+			</ddd>
+		</Bbb>
+
+		<Ccc>
+			<Niz />
+		</Ccc>
+	</Provider>
+<Aaa>
+
+1 провайдер - устанавливает значение, которое можно использовать в иерархии, 
+Provider - доступен будет вниз по иерархии
+2 консумер - считывает значение из Provider 
+
+
+
+
+
+
+
+
+

@@ -10,6 +10,9 @@ import GeneralApiService from '../../services/api'
 import Spinner from '../spinner'
 import ErrorPopap from '../popup'
 
+// import {ProviderMovie } from '../genres-context'
+// https://platform.kata.academy/user/courses/3/2/3/13   ---- 6 34
+
 class App extends Component {
   apiService = new GeneralApiService()
 
