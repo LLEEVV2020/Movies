@@ -43,7 +43,10 @@ class Movie extends Component {
             defaultValue={Number(vote_average)}
             count={10}
             style={{ fontSize: '15px' }}
-            onChange={(newRating) => onRatingChange(id, newRating)}
+            onChange={(newRating) => {
+              onRatingChange(id, newRating)
+              console.log(this.props.film)
+            }}
           />
         </div>
         <img className="movie__poster" width="183" height="281" alt="Movie poster" src={poster_path} />
