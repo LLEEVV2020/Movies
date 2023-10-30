@@ -49,7 +49,7 @@ class Movie extends Component {
                   //console.log(value)
                   //console.log(genre_ids)
                   const movieGenres = value.genres.filter((genre) => genre_ids.includes(genre.id))
-                  console.log(movieGenres)
+                  //console.log(movieGenres)
                   //console.log(Array.isArray(value.genres))
 
                   return <GenresList genres={movieGenres} />

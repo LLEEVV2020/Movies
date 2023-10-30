@@ -37,7 +37,7 @@ class App extends Component {
       .getFilms(page, queru)
 
       .then((films) => {
-        // console.log(films)
+        console.log(films)
         this.setState({
           arrFilms: films.results,
           total: films.total_results,
@@ -56,13 +56,13 @@ class App extends Component {
     this.apiService
       .getMovieGenresList()
 
-      .then((films) => {
-        //console.log(films)
+      .then((genres) => {
+        //console.log(genres)
 
         // получаем список жанров фильмов
         //
         this.setState({
-          genres: films,
+          genres: genres,
         })
       })
       .catch((err) => {
