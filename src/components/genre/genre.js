@@ -1,10 +1,10 @@
 import { Space, Typography } from 'antd'
 const { Text } = Typography
-function Genre() {
+function Genre({ genreName }) {
   return (
     <li className="movie__genres-item">
       <Space direction="vertical">
-        <Text code>text</Text>
+        <Text code>{genreName}</Text>
       </Space>
     </li>
   )

@@ -1,10 +1,12 @@
 import './genres-list.css'
 import Genre from '../genre'
 
-function GenresList() {
+function GenresList({ genres }) {
   return (
     <ul className="movie__genres-lsit">
-      <Genre />
+      {genres.map((genre) => (
+        <Genre genreName={genre.name} key={genre.id} />
+      ))}
     </ul>
   )
 }

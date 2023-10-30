@@ -9,8 +9,7 @@ import MoviesList from '../movies-list'
 import GeneralApiService from '../../services/api'
 import Spinner from '../spinner'
 import ErrorPopap from '../popup'
-
-// import {ProviderMovie } from '../genres-context'
+import { ProviderMovie } from '../genres-context/genres-context'
 // https://platform.kata.academy/user/courses/3/2/3/13   ---- 6 34
 
 class App extends Component {
@@ -28,6 +27,7 @@ class App extends Component {
       offline: false,
 
       currentTab: 'Search',
+      genres: [],
       ratedFilmsStorage: this.props.ratedFilmsStorage,
     }
   }
@@ -57,12 +57,16 @@ class App extends Component {
       .getMovieGenresList()
 
       .then((films) => {
-        console.log(films)
+        //console.log(films)
+
         // получаем список жанров фильмов
         //
+        this.setState({
+          genres: films,
+        })
       })
       .catch((err) => {
-        console.error('Отсутствие жанроф', err)
+        console.error('Отсутствие жанров', err)
         this.setState({
           error: err,
         })
@@ -129,20 +133,28 @@ class App extends Component {
   }
 
   render() {
-    const { arrFilms, isLoading, error, offline, queru, currentTab } = this.state
+    const { arrFilms, isLoading, error, offline, queru, currentTab, genres } = this.state
     let contentLoading = isLoading ? (
       <Spinner />
     ) : (
       <>
-        <MoviesList arrFilms={arrFilms} onRatingChange={this.filmRateChangeHandler} />
-        <Pagination
-          style={{ textAlign: 'center' }}
-          defaultCurrent={this.state.currentPage}
-          pageSize={20}
-          total={this.state.total}
-          onChange={this.paginationChangeHandler}
-          showSizeChanger={false}
-        />
+        <ProviderMovie value={genres}>
+          {
+            /*genres.map((home) => (
+            <div key={Math.floor(Math.random())}>{home}</div>
+          ))*/
+            //console.log(genres, 'hghhhh')
+          }
+          <MoviesList arrFilms={arrFilms} onRatingChange={this.filmRateChangeHandler} />
+          <Pagination
+            style={{ textAlign: 'center' }}
+            defaultCurrent={this.state.currentPage}
+            pageSize={20}
+            total={this.state.total}
+            onChange={this.paginationChangeHandler}
+            showSizeChanger={false}
+          />
+        </ProviderMovie>
       </>
     )
 
