@@ -119,7 +119,12 @@ class App extends Component {
       currentPage: page,
       isLoading: true,
     })
-    this.loadingService(page, this.state.queru)
+
+    if (this.state.currentTab === 'Rated') {
+      console.log('hh')
+    } else {
+      this.loadingService(page, this.state.queru)
+    }
   }
 
   /** поиск фильмов через инпут */
@@ -147,9 +152,16 @@ class App extends Component {
       this.setState({
         currentTab: 'Rated',
         isLoading: true,
+        currentPage: 1,
       })
-
-      this.loadingService(this.state.currentPage, 'king')
+      const arrFILMStorage = this.state.ratedFilmsStorage.getItems()
+      console.log(arrFILMStorage)
+      this.setState({
+        arrFilms: arrFILMStorage,
+        total: arrFILMStorage.length,
+        isLoading: false,
+      })
+      //this.loadingService(this.state.currentPage, 'king')
     }
   }
 
