@@ -23,6 +23,7 @@ class App extends Component {
       arrFilms: [],
       total: 0, // количество фильмов
       currentPage: 1, // текущая странница пагинации
+      pageSize: 20, 
       queru: 'return',
       isLoading: true,
       error: false,
@@ -114,15 +115,31 @@ class App extends Component {
 
   /** переключение пагинации */
   paginationChangeHandler = (page) => {
-    //console.log(page)
+    //console.log(page, nnnnnn)
     this.setState({
       currentPage: page,
       isLoading: true,
     })
 
     if (this.state.currentTab === 'Rated') {
-      console.log('hh')
+      
+      
+
+      const startIndex = (page - 1) * this.state.pageSize
+      const endIndex = startIndex + this.state.pageSize
+      
+      const maxFilms = this.state.ratedFilmsStorage.getItems();
+      const arrFILMStorage = maxFilms.slice(startIndex, endIndex)
+      //console.log(arrFILMStorage)
+      this.setState({
+        
+        arrFilms: arrFILMStorage,
+        total: maxFilms.length,
+        isLoading: false,
+      })
+
     } else {
+      
       this.loadingService(page, this.state.queru)
     }
   }
@@ -144,23 +161,47 @@ class App extends Component {
       this.setState({
         currentTab: 'Search',
         isLoading: true,
+        currentPage: 1,
       })
       this.loadingService(this.state.currentPage, this.state.queru)
     }
     if (newTab === 'Rated') {
       console.log(newTab)
+      
       this.setState({
         currentTab: 'Rated',
         isLoading: true,
         currentPage: 1,
       })
-      const arrFILMStorage = this.state.ratedFilmsStorage.getItems()
-      console.log(arrFILMStorage)
-      this.setState({
-        arrFilms: arrFILMStorage,
-        total: arrFILMStorage.length,
-        isLoading: false,
-      })
+      console.log(this.state.currentPage)
+      setTimeout (() => {
+        console.log(this.state.currentPage)
+        
+
+        const maxFilms = this.state.ratedFilmsStorage.getItems();
+
+        //this.setState(() => (console.log(this.state.currentPage, "hhhhhhssss")))
+        let startIndex = (this.state.currentPage - 1) * this.state.pageSize
+
+        
+     
+        const endIndex = startIndex + this.state.pageSize
+        
+        
+        const arrFILMStorage = maxFilms.slice(startIndex, endIndex)
+        //console.log(arrFILMStorage)
+        this.setState({
+          arrFilms: arrFILMStorage,
+          total: maxFilms.length,
+          isLoading: false,
+        })
+
+        }, 0)
+      
+        //
+      
+
+      
       //this.loadingService(this.state.currentPage, 'king')
     }
   }
@@ -218,7 +259,7 @@ class App extends Component {
           <Pagination
             style={{ textAlign: 'center' }}
             defaultCurrent={this.state.currentPage}
-            pageSize={20}
+            pageSize={this.state.pageSize}
             total={this.state.total}
             onChange={this.paginationChangeHandler}
             showSizeChanger={false}
