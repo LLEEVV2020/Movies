@@ -38,9 +38,9 @@ export default class GeneralApiService {
 
     const body = await res.json()
 
-    body.results.forEach((item) => {
+    /* body.results.forEach((item) => {
       item.rating = null
-    })
+    })*/
 
     return body
   }

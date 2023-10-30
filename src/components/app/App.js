@@ -7,6 +7,7 @@ import NavTabs from '../nav-tabs'
 import Search from '../search'
 import MoviesList from '../movies-list'
 import GeneralApiService from '../../services/api'
+import AppStorage from '../../services/storage'
 import Spinner from '../spinner'
 import ErrorPopap from '../popup'
 import { ProviderMovie } from '../genres-context/genres-context'
@@ -14,6 +15,7 @@ import { ProviderMovie } from '../genres-context/genres-context'
 
 class App extends Component {
   apiService = new GeneralApiService()
+  ratedFilms = new AppStorage('rated-films3', window.localStorage)
 
   constructor(props) {
     super(props)
@@ -28,7 +30,7 @@ class App extends Component {
 
       currentTab: 'Search',
       genres: [],
-      ratedFilmsStorage: this.props.ratedFilmsStorage,
+      ratedFilmsStorage: this.ratedFilms /*this.props.ratedFilmsStorage*/,
     }
   }
 
@@ -37,7 +39,27 @@ class App extends Component {
       .getFilms(page, queru)
 
       .then((films) => {
-        console.log(films)
+        films.results.forEach((item) => {
+          const arrFILMStorage = this.state.ratedFilmsStorage.getItems()
+
+          //console.log(arrFILMStorage)
+          //console.log(item)
+          //console.log(item.id)
+
+          const movieGenres = arrFILMStorage.filter((genre) => {
+            if (item.id === genre.id) {
+              item.rating = genre.rating
+              return true
+            } else {
+              return false
+            }
+          })
+          if (movieGenres.length === 0) {
+            item.rating = null
+          }
+        })
+        //console.log(films.results)
+
         this.setState({
           arrFilms: films.results,
           total: films.total_results,
@@ -116,6 +138,7 @@ class App extends Component {
       console.log(newTab)
       this.setState({
         currentTab: 'Search',
+        isLoading: true,
       })
       this.loadingService(this.state.currentPage, this.state.queru)
     }
@@ -123,25 +146,47 @@ class App extends Component {
       console.log(newTab)
       this.setState({
         currentTab: 'Rated',
+        isLoading: true,
       })
+
       this.loadingService(this.state.currentPage, 'king')
     }
   }
 
   filmRateChangeHandler = (movieId, newRating) => {
-    console.log(movieId, newRating, 'hhhhhhh')
+    //console.log(movieId, newRating, 'hhhhhhh')
     const index = this.state.arrFilms.findIndex((film) => film.id === movieId)
     const newFilm = Object.assign({}, this.state.arrFilms[index])
     newFilm.rating = newRating
 
     this.setState({
-      arrFilms: [...arrFilms.slice(0, index), newFilm, ...arrFilms.slice(index + 1)],
+      arrFilms: [...this.state.arrFilms.slice(0, index), newFilm, ...this.state.arrFilms.slice(index + 1)],
     })
 
-    console.log(newFilm.rating)
-    console.log(index)
-    console.log(newFilm)
-    console.log(this.state.arrFilms)
+    const storagedFilms = this.state.ratedFilmsStorage.getItems()
+    const storageIndex = storagedFilms.findIndex((film) => {
+      //console.log(film.id)
+      return film.id === movieId
+    })
+
+    //console.log(storagedFilms)
+    //console.log(storageIndex)
+
+    //if (~storageIndex) storagedFilms[storageIndex] = newFilm
+    //else storagedFilms.unshift(newFilm)
+    if (~storageIndex) {
+      storagedFilms[storageIndex] = newFilm
+    } else {
+      storagedFilms.unshift(newFilm)
+    }
+
+    this.state.ratedFilmsStorage.setItems(storagedFilms)
+
+    //console.log(hyhh)
+    //console.log(newFilm.rating)
+    //console.log(index)
+    //console.log(newFilm)
+    //console.log(this.state.arrFilms)
   }
 
   render() {
@@ -182,9 +227,6 @@ class App extends Component {
     return (
       <section className="movies">
         <NavTabs onChnage={this.tabChangeHandler} />
-
-        {this.state.ratedFilmsStorage.getItems()}
-        {this.state.ratedFilmsStorage._storeKey}
 
         {currentTab === 'Search' ? (
           <Search searchQuery={queru} changeHandler={this.debauncedSearchInputChangeHandler} />
