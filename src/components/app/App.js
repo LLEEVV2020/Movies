@@ -129,7 +129,19 @@ class App extends Component {
   }
 
   filmRateChangeHandler = (movieId, newRating) => {
-    console.log(movieId, newRating)
+    console.log(movieId, newRating, 'hhhhhhh')
+    const index = this.state.arrFilms.findIndex((film) => film.id === movieId)
+    const newFilm = Object.assign({}, this.state.arrFilms[index])
+    newFilm.rating = newRating
+
+    this.setState({
+      arrFilms: [...arrFilms.slice(0, index), newFilm, ...arrFilms.slice(index + 1)],
+    })
+
+    console.log(newFilm.rating)
+    console.log(index)
+    console.log(newFilm)
+    console.log(this.state.arrFilms)
   }
 
   render() {

@@ -23,7 +23,7 @@ class Movie extends Component {
     release_date:
       this.props.film.release_date === '' ? '' : format(new Date(this.props.film.release_date), 'MMMM d, yyyy'),
     //vote_average: this.props.film.vote_average,
-    vote_average: null,
+    vote_average: this.props.film.rating,
   }
 
   render() {
@@ -71,8 +71,8 @@ class Movie extends Component {
               this.setState({
                 vote_average: newRating,
               })
-              console.log(this.props.film)
-              console.log(this.genre_ids)
+              //console.log(this.props.film)
+              //console.log(this.state.genre_ids)
             }}
           />
         </div>

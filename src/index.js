@@ -20,7 +20,7 @@ apiService
   })*/
 
 const ratedFilmsStorage = new AppStorage('rated-films3', window.localStorage)
-console.log(ratedFilmsStorage)
+//console.log(ratedFilmsStorage)
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
