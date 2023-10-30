@@ -57,7 +57,7 @@ class App extends Component {
       .getMovieGenresList()
 
       .then((films) => {
-         console.log(films)
+        console.log(films)
         // получаем список жанров фильмов
         //
       })
@@ -68,7 +68,7 @@ class App extends Component {
         })
       })
   }
-  
+
   componentDidMount() {
     if (!navigator.onLine) {
       this.setState({
@@ -78,7 +78,6 @@ class App extends Component {
 
     this.loadingService(this.state.currentPage, this.state.queru)
     this.loadingMovieGenresList()
-    
   }
 
   /*componentDidUpdate(prevState) {

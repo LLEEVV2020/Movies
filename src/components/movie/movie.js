@@ -53,7 +53,6 @@ class Movie extends Component {
               console.log(this.props.film.genre_ids)
             }}
           />
-          
         </div>
         <img className="movie__poster" width="183" height="281" alt="Movie poster" src={poster_path} />
       </li>

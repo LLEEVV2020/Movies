@@ -1,2 +1,2 @@
-import RatingNumber from './rating-number';
-export default RatingNumber;
+import RatingNumber from './rating-number'
+export default RatingNumber
