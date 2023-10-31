@@ -22,13 +22,12 @@ class Movie extends Component {
 
     release_date:
       this.props.film.release_date === '' ? '' : format(new Date(this.props.film.release_date), 'MMMM d, yyyy'),
-    //vote_average: this.props.film.vote_average,
+
     vote_average: this.props.film.rating,
   }
 
   render() {
     const { onRatingChange, id, overview, title, release_date, poster_path, vote_average, genre_ids } = this.state
-    //console.log(this.props.film)
 
     return (
       <li className="movies__item movie">
@@ -45,12 +44,7 @@ class Movie extends Component {
                     </i>
                   )
                 } else {
-                  //console.log(this.props.film)
-                  //console.log(value)
-                  //console.log(genre_ids)
                   const movieGenres = value.genres.filter((genre) => genre_ids.includes(genre.id))
-                  //console.log(movieGenres)
-                  //console.log(Array.isArray(value.genres))
 
                   return <GenresList genres={movieGenres} />
                 }
@@ -71,8 +65,6 @@ class Movie extends Component {
               this.setState({
                 vote_average: newRating,
               })
-              //console.log(this.props.film)
-              //console.log(this.state.genre_ids)
             }}
           />
         </div>

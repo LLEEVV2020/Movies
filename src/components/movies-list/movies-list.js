@@ -8,10 +8,6 @@ const { Text } = Typography
 function MoviesList({ arrFilms, onRatingChange }) {
   return (
     <ul className="movies__list">
-      {
-        //console.log(arrFilms)
-      }
-
       {arrFilms.length ? (
         arrFilms.map((film) => {
           return <Movie key={film.id} film={film} onRatingChange={onRatingChange} />

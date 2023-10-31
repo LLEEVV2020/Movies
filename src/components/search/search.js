@@ -1,6 +1,5 @@
 import { Input } from 'antd'
 import React, { Component } from 'react'
-//import { useState, useEffect } from 'react'
 
 class Search extends Component {
   constructor(props) {
@@ -20,7 +19,6 @@ class Search extends Component {
         onChange={(evt) => {
           this.setState({
             searchQuery: evt.target.value,
-            //changeHandler: evt.target.value,
           })
           changeHandler(evt.target.value)
         }}

@@ -38,10 +38,6 @@ export default class GeneralApiService {
 
     const body = await res.json()
 
-    /* body.results.forEach((item) => {
-      item.rating = null
-    })*/
-
     return body
   }
 
@@ -49,7 +45,6 @@ export default class GeneralApiService {
     this._PAGE = page
     this._QUERU = queru
     const res = await this.getResource(this._URL + this._QUERU + this._URLPar + this._PAGE)
-    //console.log(res)
     return res
   }
 
@@ -58,22 +53,9 @@ export default class GeneralApiService {
     if (!response.ok) {
       throw new Error('Возможно не правильный путь ссылки по списку жанров')
     }
-    //console.log(response)
+
     const genres = await response.json()
 
     return genres
   }
 }
-
-/*const apiService = new GeneralApiService()
-apiService
-  .getFilms()
-  .then((films) => {
-    films.forEach((film) => {
-      console.log(film)
-      console.log(film.overview)
-    })
-  })
-  .catch((err) => {
-    console.error('Ошибка', err)
-  })*/
